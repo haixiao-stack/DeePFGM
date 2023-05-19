@@ -1,0 +1,129 @@
+{
+    #---------------工作目录设置------------------#
+    #工作文件夹路径
+    'work_dir' : ('/home/ehx2/flareDflow1'),
+
+    #在工作文件夹work_dir下的输出文件名
+    'output_fln' : 'flare.tbl',
+    #----------------------------------------------#
+
+    #---------------cantera设置-------------------#
+    #机理文件路径/文件名
+    'chemMech' : 'gri30.xml',
+
+    #cantera输运模型  
+    #选项：'Mix' (Solve with mixture-averaged transport model)  'Multi' (Solve with multi-component transport properties)
+    'transModel' : 'Mix',
+
+    #是否使用相对参数
+    'scaled_PV' : True,
+
+    #最小混合物分数
+    'f_min' : 0.03,
+
+    #最大混合物分数
+    'f_max' : 0.145,
+
+    #计算多少个混合物分数/当量比
+    'nchemfile' : 40,
+
+    #adiabaticFlame()函数中存储data变量的列数为nVarCant+nSpeMech，
+    #其中前nVarCant列存储：反应进度、反应速率、温度、密度、定压比热容、总质量、生成焓、运动粘度、焓、释热率
+    'nVarCant' : 10,
+    #----------------------------------------------#
+
+
+    #-----------cantera层流火焰设置--------------#
+    # case name
+    'CASENAME' : 'CH4',
+
+    # pressure [Pa]
+    'p' : 101325.0,
+
+    # Domain size for the simulation [m]
+    'Lx' : 0.05,
+
+    ## Fuel characteristics##
+    # Fuel is assumed to be of the form CxHy
+    'fuel_species' : 'CH4',
+
+    # number of C atoms in the fuel
+    'fuel_C' : 1.,
+
+    # number of H atoms in the fuel
+    'fuel_H' : 4.,
+
+    # Fuel temperature [K]
+    'T_fuel' : 300.,
+
+    # Fuel composition (in mole fraction)
+    'X_fuel' : 'CH4:1',
+
+    ## Oxidiser characteristics##
+    # oxidiser temperature [K]
+    'T_ox' : 291.,
+
+    # oxidiser composition (in mole fraction)
+    'X_ox' : 'O2:0.21, N2:0.79',
+
+    # boundary conditions for pure fuel and oxidiser
+    #边界条件需要计算的物理量数量，即BCdata的列数
+    'nscal_BC' : 7,
+    #----------------------------------------------#
+
+
+    #---------------计算网格设置-----------------#
+    #在某个当量比时用进程变量c插值的节点数
+    'cUnifPts' : 1001,
+
+    #混合物分数Z的被插值点数
+    'n_points_z' : 501,
+
+    #进程变量c的被插值点数
+    'n_points_c' : 401,
+
+    #solIdx的最大值
+    'n_points_h' : 1,
+
+    #需要在flare.tbl写出的组分数量
+    'nYis' : 3,
+
+    #需要写出的组分名称
+    'spc_names' : ['H2O','CO','CO2'],
+
+    #z初始节点数
+    'int_pts_z' : 80,  
+    
+    #c初始节点数
+    'int_pts_c' : 51,  
+
+    #Zvar初始节点数
+    'int_pts_gz' : 15, 
+
+    #cvar初始节点数            
+    'int_pts_gc' : 21, 
+
+    #相关系数初始节点数            
+    'int_pts_gcor' : 11,
+    'int_pts_gcz' : 11,
+
+    #intpSclMat第三维度的大小，     
+    'nScalars' : 12,   
+
+    #初始化时gc的最大值为1-small
+    'small' : 1.0e-4,
+
+    #pdf并行计算的处理器数
+    'n_procs' : 10,
+
+    'solIdx' : 1,
+    #pdf所对应的copula方法,frank或者independent
+    'pdf_type':"frank",
+    # cutoff代表是否选择截断,
+    'cutoff':"no",
+    # bar1代表截断控制量上限,bar>1
+    'bar1':4 , 
+    # bar2代表截断控制量下限,bar<1
+    'bar2':0.25 ,
+    #----------------------------------------------#
+}
