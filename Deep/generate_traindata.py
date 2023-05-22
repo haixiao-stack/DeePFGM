@@ -1,8 +1,10 @@
 from scipy import stats
 from scipy.special import inv_boxcox
 import numpy as np
-Xdata=np.load('./data/raw_data/Xdata_T.npy')
-Ydata=np.load('./data/raw_data/Ydata_T.npy')
+name="YH2O"
+Xdata=np.load("../../data/raw_data/Xdata_"+name+".npy")
+Ydata=np.load("../../data/raw_data/Ydata_"+name+".npy")
+# print(np.shape(Ydata))
 length=len(Ydata[0])
 lambdas=np.zeros(length)
 constants=np.zeros(length)
@@ -26,11 +28,10 @@ for i in range(len(label_texts)):
     y[:,i]=(y[:,i]-phimin[i])/(phimax[i]-phimin[i])
 for i in range(8):
     x[:,i]=(x[:,i]-xmin[i])/(xmax[i]-xmin[i])
-np.save("./data/train_data/Xdata_train_T",x)
-np.save("./data/train_data/Ydata_train_T",y)
-np.save("./data/process_params/phimax_T",phimax)
-np.save("./data/process_params/phimin_T",phimin)
-# np.save("./data/process_params/xmax_try",xmax)
-# np.save("./data/process_params/xmin_try",xmin)
-np.save('./data/process_params/constants_T',constants)
-np.save('./data/process_params/lambdas_T',lambdas)
+# print(np.shape(y))
+np.save("../../data/train_data/Xdata_train_"+name+".npy",x)
+np.save("../../data/train_data/Ydata_train_"+name+".npy",y)
+np.save("../../data/process_params/phimax_"+name+".npy",phimax)
+np.save("../../data/process_params/phimin_"+name+".npy",phimin)
+np.save("../../data/process_params/constants_"+name+".npy",constants)
+np.save("../../data/process_params/lambdas_"+name+".npy",lambdas)

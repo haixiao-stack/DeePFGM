@@ -6,12 +6,12 @@ x=np.zeros(4)
 y=np.zeros(14)
 num=20
 columns=19
-rows=4095
-for i in range(32,87):#1,num+1
+rows=21735
+for i in range(36,153):#1,num+1
  str_i=str("%02d"%i)
 #  data_i = np.fromfile("./data_new/unit"+str_i+"_h01.dat", dtype=np.float64, count=rows*columns, sep=" ", offset=0)
 #  data_i=np.reshape(data_i,(rows,columns))
- data_i = np.loadtxt("./data/data_T/unit"+str_i+"_h01.dat", dtype=np.float64)
+ data_i = np.loadtxt("../../data/data_YH2O/unit"+str_i+"_h01.dat", dtype=np.float64)
  x_i=data_i[:,0:4]
  y_i=data_i[:,5:19]
  x=np.vstack([x,x_i])
@@ -28,5 +28,5 @@ new_col = np.array(x[:,1]*(1/(x[:,3]+1e-4)-1))
 x = np.c_[x, new_col]
 new_col = np.array((1-x[:,1])*(1/(x[:,3]+1e-4)-1))
 x = np.c_[x, new_col]
-np.save('./data/raw_data/Xdata_T',x)
-np.save('./data/raw_data/Ydata_T',y)
+np.save('../../data/raw_data/Xdata_YH2O',x)
+np.save('../../data/raw_data/Ydata_YH2O',y)

@@ -15,7 +15,7 @@ x=np.load('./data/raw_data/Xdata.npy')
 x=process_raw(x)
 x = torch.tensor(x,dtype=torch.float)
 x=x.to("cuda")
-model = ResNet(BasicBlock,6,300,8,3)
+model = ResNet(BasicBlock,6,300,8,1)
 params = torch.load("./networks/model_gpu_400_cp.pth") # 加载参数
 model.load_state_dict(params) # 应用到网络结构中
 model=model.to("cuda")
@@ -44,7 +44,8 @@ phi_mean=np.mean(ytrue[:,ind])
 # print(ytrue[:,ind])
 # print(np.mean((predictions[:,ind]-ytrue[:,ind])**2))
 # print(np.mean((phi_mean-ytrue[:,ind])**2))
-errors=predictions[:,ind-diff]-ytrue[:,ind]
+# errors=predictions[:,ind-diff]-ytrue[:,ind]
+predictions[:,ind-diff] = np.nan_to_num(predictions[:,ind-diff], nan=0)
 print("R",1-np.mean((predictions[:,ind-diff]-ytrue[:,ind])**2)/np.mean((phi_mean-ytrue[:,ind])**2))
 plt.subplot(1,2,1)
 plt.scatter(ytrue[:,ind],predictions[:,ind-diff])
