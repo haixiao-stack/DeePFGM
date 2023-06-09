@@ -1,3 +1,11 @@
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+import matplotlib.pyplot as plt
+from torch.autograd import Variable
+import matplotlib.pyplot as plt
+import numpy as np
+from sklearn.model_selection import train_test_split
 class BasicBlock(nn.Module):
     # 判断残差结构中，主分支的卷积核个数是否发生变化，不变则为1
     # init()：进行初始化，申明模型中各层的定义
@@ -22,18 +30,18 @@ class DeepNet(nn.Module):
         super(ResNet, self).__init__()
         self.neuron=neuron_num
         self.input_layer=nn.Linear(n_input,self.neuron)
-        self.res_layer = self._make_layer(block,block_num)
+        self.dnn_layer = self._make_layer(block,block_num)
         self.output_layer=nn.Linear(self.neuron,n_output)
     def _make_layer(self, block,block_num):
         # 如果满足条件，则是虚线残差结构
         layers = []
         for i in range(1, block_num):
-            layers.append(block(self.neuron,self.neuron,downsample=downsample)) 
+            layers.append(block(self.neuron,self.neuron)) 
         return nn.Sequential(*layers)
     def forward(self,input):
         out = self.input_layer(input)
         out = F.relu(out)
-        out = self.res_layer(out)
+        out = self.dnn_layer(out)
         out = F.relu(out)
         out = self.output_layer(out)
         return out

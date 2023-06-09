@@ -1,10 +1,11 @@
 from scipy import stats
 from scipy.special import inv_boxcox
 import numpy as np
-name="YH2O"
-Xdata=np.load("../../data/raw_data/Xdata_"+name+".npy")
-Ydata=np.load("../../data/raw_data/Ydata_"+name+".npy")
-# print(np.shape(Ydata))
+worktype="data-4D"
+name="all"
+Xdata=np.load("../../"+worktype+"/raw_data/Xdata_"+name+".npy")
+Ydata=np.load("../../"+worktype+"/raw_data/Ydata_"+name+".npy")
+print(np.shape(Ydata))
 length=len(Ydata[0])
 lambdas=np.zeros(length)
 constants=np.zeros(length)
@@ -26,12 +27,12 @@ phimin=np.min(y,axis=0)
 phimax=np.max(y,axis=0)
 for i in range(len(label_texts)):
     y[:,i]=(y[:,i]-phimin[i])/(phimax[i]-phimin[i])
-for i in range(8):
+for i in range(2):
     x[:,i]=(x[:,i]-xmin[i])/(xmax[i]-xmin[i])
-# print(np.shape(y))
-np.save("../../data/train_data/Xdata_train_"+name+".npy",x)
-np.save("../../data/train_data/Ydata_train_"+name+".npy",y)
-np.save("../../data/process_params/phimax_"+name+".npy",phimax)
-np.save("../../data/process_params/phimin_"+name+".npy",phimin)
-np.save("../../data/process_params/constants_"+name+".npy",constants)
-np.save("../../data/process_params/lambdas_"+name+".npy",lambdas)
+print(np.shape(y))
+np.save("../../"+worktype+"/train_data/Xdata_train_"+name+".npy",x)
+np.save("../../"+worktype+"/train_data/Ydata_train_"+name+".npy",y)
+np.save("../../"+worktype+"/process_params/phimax_"+name+".npy",phimax)
+np.save("../../"+worktype+"/process_params/phimin_"+name+".npy",phimin)
+np.save("../../"+worktype+"/process_params/constants_"+name+".npy",constants)
+np.save("../../"+worktype+"/process_params/lambdas_"+name+".npy",lambdas)
