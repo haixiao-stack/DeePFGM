@@ -2,10 +2,10 @@ batch_size_train = 10240
 lr_train = 1e-6 #学习率
 weight_decay_train=1e-6 #梯度下降衰减系数
 epochs_train = 5000 #训练迭代次数
-blocknum=8
-neuronum=200
+blocknum=9
+neuronum=300
 inputnum=4
-outputnum=11
+outputnum=3
 import torch
 import torch.utils.data as Data
 from RES import ResNet,BasicBlock
@@ -15,7 +15,7 @@ from torch.autograd import Variable
 import matplotlib.pyplot as plt
 import numpy as np
 from sklearn.model_selection import train_test_split
-name="all"
+name="omegac"
 worktype="data-4D"
 networktype="networks-4D"
 x=np.load("../../"+worktype+"/train_data/Xdata_train_"+name+".npy")
@@ -25,9 +25,9 @@ x_train, x_test, y_train, y_test = train_test_split(x, y, test_size = 0.05)
 model= ResNet(BasicBlock,blocknum,neuronum,inputnum,outputnum)
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 model.to(device)
-y_train_phi=y_train
+y_train_phi=y_train[:,0:3]
 # print(np.shape(y_train_phi))
-y_test_phi=y_test
+y_test_phi=y_test[:,0:3]
 optimizer = torch.optim.Adam(model.parameters(),lr = lr_train,weight_decay=weight_decay_train)
 loss_func = torch.nn.MSELoss()
 # print("ok")

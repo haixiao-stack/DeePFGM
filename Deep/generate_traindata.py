@@ -2,7 +2,8 @@ from scipy import stats
 from scipy.special import inv_boxcox
 import numpy as np
 worktype="data-4D"
-name="all"
+name="all_8D"
+dimension=4
 Xdata=np.load("../../"+worktype+"/raw_data/Xdata_"+name+".npy")
 Ydata=np.load("../../"+worktype+"/raw_data/Ydata_"+name+".npy")
 print(np.shape(Ydata))
@@ -27,7 +28,7 @@ phimin=np.min(y,axis=0)
 phimax=np.max(y,axis=0)
 for i in range(len(label_texts)):
     y[:,i]=(y[:,i]-phimin[i])/(phimax[i]-phimin[i])
-for i in range(2):
+for i in range(dimension):
     x[:,i]=(x[:,i]-xmin[i])/(xmax[i]-xmin[i])
 print(np.shape(y))
 np.save("../../"+worktype+"/train_data/Xdata_train_"+name+".npy",x)
